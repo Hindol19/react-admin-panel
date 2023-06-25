@@ -1,0 +1,9 @@
+jsconfig.json=>
+--------------------------------------------------------------------------------
+The presence of jsconfig. json file in a directory indicates that the directory is the root of a JavaScript Project.
+
+"compilerOptions": This object specifies the compiler options for the JavaScript language service.
+
+"baseUrl": "src": The "baseUrl" option sets the base URL for module resolution. In this case, it is set to "src", indicating that modules should be resolved relative to the "src" directory.
+
+"include": ["src"]: This array specifies the list of files or directories to be included in the project. In this case, only the files within the "src" directory will be considered part of the project.
