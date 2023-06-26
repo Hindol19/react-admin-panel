@@ -6,6 +6,8 @@ import { themeSettings } from "./theme";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./scenes/layout";
 import Dashboard from "./scenes/dashboard";
+import Products from "./scenes/products";
+import Customers from "./scenes/customers";
 
 function App() {
   // useSelector is a hook to access the redux store's state. This hook takes a selector function as an argument. The selector is called with the store state.
@@ -30,6 +32,8 @@ function App() {
               {/* Always navigate to dashboard when at home route */}
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/customers" element={<Customers />} />
             </Route>
           </Routes>
         </ThemeProvider>

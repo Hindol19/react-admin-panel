@@ -12,7 +12,9 @@ import salesRoutes from "./routes/sales.js";
 
 //DATA IMPORTS
 import User from "./models/User.js";
-import { dataUser } from "./data/index.js";
+import Product from "./models/Product.js";
+import ProductStat from "./models/ProductStat.js";
+import { dataUser, dataProduct, dataProductStat } from "./data/index.js";
 
 // CONFIGURATION
 dotenv.config();
@@ -44,5 +46,7 @@ mongoose
 
     // ADD DATA ONLY ONCE!
     // User.insertMany(dataUser);
+    // Product.insertMany(dataProduct);
+    // ProductStat.insertMany(dataProductStat);
   })
   .catch((error) => console.log(error));
