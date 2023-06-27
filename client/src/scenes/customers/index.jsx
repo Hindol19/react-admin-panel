@@ -89,7 +89,7 @@ const Customers = () => {
           rows={data || []}
           //   columns should have an array of objects
           columns={columns}
-        ></DataGrid>
+        />
       </Box>
     </Box>
   );
