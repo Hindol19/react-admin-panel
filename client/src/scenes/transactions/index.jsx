@@ -9,7 +9,7 @@ const Transactions = () => {
   const theme = useTheme();
 
   //Values to be sent to the backend:
-  const [page, setPage] = useState(3);
+  const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
   const [sort, setSort] = useState({});
   const [search, setSearch] = useState("");
@@ -43,7 +43,7 @@ const Transactions = () => {
     {
       field: "products",
       headerName: "# of Products",
-      flex: 0.4,
+      flex: 0.5,
       sortable: false,
       renderCell: (params) => params.value.length,
     },
