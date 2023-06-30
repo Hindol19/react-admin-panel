@@ -1,5 +1,12 @@
-import express from "express";
+import mongoose from "mongoose";
+import User from "../models/User.js";
 
-const router = express.Router();
+export const getAdmins = async (req, res) => {
+  try {
+    const admins = await User.find({ role: "admin" }).select("-password");
 
-export default router;
+    res.status(200).json(admins);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
