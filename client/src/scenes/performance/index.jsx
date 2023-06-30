@@ -1,10 +1,16 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
-import { useGetAdminsQuery } from "../../state/api";
+import { useGetUserPerformanceQuery } from "../../state/api";
 import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
 
-const Admin = () => {
+const Performance = () => {
+  const theme = useTheme();
+  const userId = useSelector((state) => state.global.userId);
+  const { data, isLoading } = useGetUserPerformanceQuery(userId);
+  console.log("Perf Data =>", data);
+
   const columns = [
     {
       field: "_id",
@@ -12,40 +18,32 @@ const Admin = () => {
       flex: 1,
     },
     {
-      field: "name",
-      headerName: "Name",
-      flex: 0.5,
-    },
-    {
-      field: "email",
-      headerName: "Email",
+      field: "userId",
+      headerName: "User ID",
       flex: 1,
     },
     {
-      field: "phoneNumber",
-      headerName: "Phone Number",
-      flex: 0.5,
-      //   renderCell changes the visual format of the ph number
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
-    },
-    {
-      field: "country",
-      headerName: "Country",
-      flex: 0.4,
-    },
-    {
-      field: "occupation",
-      headerName: "Occupation",
+      field: "createdAt",
+      headerName: "Created At",
       flex: 1,
+    },
+    {
+      field: "products",
+      headerName: "# of Products",
+      flex: 0.5,
+      sortable: false,
+      renderCell: (params) => params.value.length,
+    },
+    {
+      field: "cost",
+      headerName: "Cost",
+      flex: 1,
+      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
     },
   ];
-  const { data, isLoading } = useGetAdminsQuery();
-  const theme = useTheme();
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADMINS" subtitle="Managing Admins and List of Admins" />
+      <Header title="PERFORMANCE" subtitle="Track Your Affiliate Sales" />
       <Box
         mt="40px"
         height="70vh"
@@ -78,7 +76,7 @@ const Admin = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={(data && data.sales) || []}
           //   columns should have an array of objects
           columns={columns}
         />
@@ -87,4 +85,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Performance;
