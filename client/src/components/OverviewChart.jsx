@@ -23,16 +23,18 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       color: theme.palette.secondary[600],
       data: [],
     };
-    
+
     Object.values(monthlyData).reduce(
       (acc, { month, totalSales, totalUnits }) => {
         const curSales = acc.sales + totalSales;
         const curUnits = acc.units + totalUnits;
         
+        //Storing current sales values in totalSalesLine
         totalSalesLine.data = [
           ...totalSalesLine.data,
           { x: month, y: curSales },
         ];
+        //Storing current units values in totalUnitsLine
         totalUnitsLine.data = [
           ...totalUnitsLine.data,
           { x: month, y: curUnits },
