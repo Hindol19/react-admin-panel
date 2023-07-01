@@ -207,9 +207,13 @@ const Sidebar = ({
               })}
             </List>
           </Box>
-          <Box position="absolute" bottom="2rem">
+          <Box position="relative" mt="0rem">
             <Divider />
-            <FlexBetween textTransform="none" gap="1rem" m="1.5rem 2rem 0 3rem">
+            <FlexBetween
+              textTransform="none"
+              gap="1rem"
+              m="1.5rem 2rem 1.5rem 3rem"
+            >
               <Box
                 component="img"
                 alt="profile"

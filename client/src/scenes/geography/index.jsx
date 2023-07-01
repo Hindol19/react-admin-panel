@@ -17,7 +17,7 @@ const Geography = () => {
         border={`1px solid ${theme.palette.secondary[200]}`}
         borderRadius="4px"
       >
-        {data ? (
+        {data && !isLoading ? (
           <ResponsiveChoropleth
             data={data}
             theme={{
