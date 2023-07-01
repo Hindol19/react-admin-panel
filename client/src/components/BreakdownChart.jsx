@@ -122,7 +122,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
           fontSize="1.3rem"
           color={theme.palette.secondary[200]}
         >
-          {!isDashboard && "Total:"} ${data.yearlySalesTotal}
+          {!isDashboard && `Total : $${data.yearlySalesTotal}`}
         </Typography>
       </Box>
     </Box>
