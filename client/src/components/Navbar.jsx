@@ -22,9 +22,12 @@ import {
   useTheme,
   IconButton,
   InputBase,
+  useMediaQuery,
 } from "@mui/material";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
+  // console.log(isNonMobile);
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -62,7 +65,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
           </FlexBetween>
         </FlexBetween>
         {/* Right Side */}
-        <FlexBetween gap="1.5rem">
+        <FlexBetween gap={isNonMobile ? "1.5rem" : "1rem"}>
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlined sx={{ fontSize: "25px" }} />
@@ -70,9 +73,12 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
+
+          {isNonMobile && (
+            <IconButton>
+              <SettingsOutlined sx={{ fontSize: "25px" }} />
+            </IconButton>
+          )}
           <FlexBetween>
             <Button
               onClick={handleClick}
@@ -82,6 +88,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 alignItems: "center",
                 textTransform: "none",
                 gap: "1rem",
+                p: !isNonMobile && "0",
               }}
             >
               <Box
@@ -93,21 +100,23 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 borderRadius="50%"
                 sx={{ objectFit: "cover" }}
               />
-              <Box textAlign="left">
+              <Box textAlign="left" width="100%">
                 <Typography
                   fontWeight="bold"
-                  fontSize="0.85rem"
+                  fontSize="0.85"
                   sx={{ color: theme.palette.secondary[100] }}
                 >
                   {user.name}
                 </Typography>
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.75rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  {user.occupation}
-                </Typography>
+                {isNonMobile && (
+                  <Typography
+                    fontWeight="bold"
+                    fontSize="0.75"
+                    sx={{ color: theme.palette.secondary[200] }}
+                  >
+                    {user.occupation}
+                  </Typography>
+                )}
               </Box>
               <ArrowDropDownOutlined
                 sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}

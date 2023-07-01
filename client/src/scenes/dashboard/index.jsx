@@ -57,6 +57,7 @@ const Dashboard = () => {
 
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { data, isLoading } = useGetDashboardQuery();
   console.log("DASHBOARD DATA =>", data);
   return (
@@ -68,11 +69,11 @@ const Dashboard = () => {
             sx={{
               backgroundColor: theme.palette.secondary.light,
               color: theme.palette.background.alt,
-              fontSize: "14px",
-              padding: "10px 20px",
+              fontSize: isNonMobile ? "14px" : "12px",
+              padding: isNonMobile ? "10px 20px" : "7px 2px",
             }}
           >
-            <DownloadOutlined sx={{ mr: "10px" }} />
+            <DownloadOutlined sx={{ mr: isNonMobile && "10px" }} />
             Download Reports
           </Button>
         </Box>
