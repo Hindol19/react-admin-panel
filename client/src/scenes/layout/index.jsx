@@ -23,7 +23,7 @@ const Layout = () => {
       // display="flex"
       width="100%"
       height="100%"
-      border="2px solid red"
+      // border="2px solid red"
     >
       <Sidebar
         user={data || {}}

@@ -116,7 +116,7 @@ const Dashboard = () => {
           gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={theme.palette.background.alt}
-          p="1rem"
+          p={isNonMobile ? "1rem" : "0"}
           borderRadius="0.55rem"
         >
           <OverviewChart view="sales" isDashboard={true} />

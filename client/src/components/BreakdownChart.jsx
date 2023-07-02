@@ -1,9 +1,11 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { useGetSalesQuery } from "../state/api";
 
 const BreakdownChart = ({ isDashboard = false }) => {
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
+
   const { data, isLoading } = useGetSalesQuery();
   const theme = useTheme();
 
@@ -27,7 +29,8 @@ const BreakdownChart = ({ isDashboard = false }) => {
   return (
     <Box
       height={isDashboard ? "400px" : "100%"}
-      width={undefined}
+      // width={undefined}
+      width={isNonMobile ? "100%" : "120%"}
       minHeight={isDashboard ? "325px" : undefined}
       position="relative"
     >
@@ -93,13 +96,13 @@ const BreakdownChart = ({ isDashboard = false }) => {
         legends={[
           {
             anchor: "bottom",
-            direction: "row",
+            direction: isNonMobile ? "row" : "column",
             justify: false,
-            translateX: isDashboard ? 20 : 0,
-            translateY: isDashboard ? 50 : 56,
+            translateX: isNonMobile ? (isDashboard ? 20 : 0) : -30,
+            translateY: isNonMobile ? (isDashboard ? 50 : 56) : 65,
             itemsSpacing: 0,
-            itemWidth: 85,
-            itemHeight: 18,
+            itemWidth: isNonMobile ? 85 : 187,
+            itemHeight: isNonMobile ? 18 : 35,
             itemTextColor: "#999",
             itemDirection: "left-to-right",
             itemOpacity: 1,
