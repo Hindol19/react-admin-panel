@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { useGetAdminsQuery } from "../../state/api";
 import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
 
 const Admin = () => {
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const columns = [
     {
       field: "_id",
@@ -44,7 +45,7 @@ const Admin = () => {
   const { data, isLoading } = useGetAdminsQuery();
   const theme = useTheme();
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m={isNonMobile ? "1.5rem 2.5rem" : "1.5rem 1rem"}>
       <Header title="ADMINS" subtitle="Managing Admins and List of Admins" />
       {!isLoading ? (
         <Box
@@ -85,7 +86,17 @@ const Admin = () => {
           />
         </Box>
       ) : (
-        <>...Loading</>
+        <Box
+          width="100%"
+          height="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          fontSize={isNonMobile ? "1.3rem" : "0.8rem"}
+          textAlign="center"
+        >
+          Loading may take time. Please have patience :)
+        </Box>
       )}
     </Box>
   );

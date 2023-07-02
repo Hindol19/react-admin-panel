@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@emotion/react";
 import { useGetSalesQuery } from "../state/api";
-import { useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 
 const OverviewChart = ({ isDashboard = false, view }) => {
   const isNonMobile = useMediaQuery("(min-width: 768px)");
@@ -50,7 +50,19 @@ const OverviewChart = ({ isDashboard = false, view }) => {
     return [[totalSalesLine], [totalUnitsLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!data || isLoading) return "Loading...";
+  if (!data || isLoading)
+    return (
+      <Box
+        width="100%"
+        height="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        fontSize="1.3rem"
+      >
+        Loading may take time. Please have patience :)
+      </Box>
+    );
 
   console.log("Sales data =>", data);
   return (
@@ -105,8 +117,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
       axisRight={null}
       axisBottom={{
         format: (v) => {
-          if (isDashboard) return isNonMobile ? v.slice(0, 3) : v.slice(0, 1);
-          return v;
+          return isNonMobile ? v.slice(0, 3) : v.slice(0, 1);
         },
         orient: "bottom",
         tickSize: 5,

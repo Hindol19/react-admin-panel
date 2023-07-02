@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { useGetGeographyQuery } from "../../state/api";
 import Header from "../../components/Header";
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { geoData } from "../../state/geoData.js";
 const Geography = () => {
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const { data, isLoading } = useGetGeographyQuery();
   const theme = useTheme();
   console.log("GeoData =>", data);
@@ -13,7 +14,7 @@ const Geography = () => {
       <Header title="GEOGRAPHY" subtitle="Find where your users are located." />
       <Box
         mt="40px"
-        height="75vh"
+        height={isNonMobile ? "75vh" : "50vh"}
         border={`1px solid ${theme.palette.secondary[200]}`}
         borderRadius="4px"
       >
@@ -61,25 +62,25 @@ const Geography = () => {
             unknownColor="#666666"
             label="properties.name"
             valueFormat=".2s"
-            projectionScale={150}
-            projectionTranslation={[0.45, 0.6]}
+            projectionScale={isNonMobile ? 150 : 55}
+            projectionTranslation={isNonMobile ? [0.45, 0.6] : [0.65, 0.5]}
             projectionRotation={[0, 0, 0]}
             borderWidth={1.3}
             borderColor="white"
             legends={[
               {
                 anchor: "bottom-right",
-                direction: "column",
+                direction: isNonMobile ? "column" : "row",
                 justify: true,
-                translateX: 0,
-                translateY: -125,
+                translateX: isNonMobile ? 0 : 40,
+                translateY: isNonMobile ? -125 : -5,
                 itemsSpacing: 0,
-                itemWidth: 94,
-                itemHeight: 18,
-                itemDirection: "left-to-right",
+                itemWidth: isNonMobile ? 94 : 45,
+                itemHeight: isNonMobile ? 18 : 26,
+                itemDirection: isNonMobile ? "left-to-right" : "bottom-to-top",
                 itemTextColor: theme.palette.secondary[200],
-                itemOpacity: 0.85,
-                symbolSize: 18,
+                itemOpacity: 1,
+                symbolSize: isNonMobile ? 18 : 10,
                 effects: [
                   {
                     on: "hover",
@@ -93,7 +94,17 @@ const Geography = () => {
             ]}
           />
         ) : (
-          <>...Loading</>
+          <Box
+            width="100%"
+            height="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            fontSize="1.3rem"
+            textAlign="center"
+          >
+            Loading may take time. Please have patience :)
+          </Box>
         )}
       </Box>
     </Box>

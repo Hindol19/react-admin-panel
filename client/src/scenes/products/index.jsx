@@ -130,7 +130,17 @@ const Products = () => {
           )}
         </Box>
       ) : (
-        <>...Loading</>
+        <Box
+          width="100%"
+          height="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          fontSize={isNonMobile ? "1.3rem" : "0.8rem"}
+          textAlign="center"
+        >
+          Loading may take time. Please have patience :)
+        </Box>
       )}
     </Box>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { useGetCustomersQuery } from "../../state/api";
 import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
@@ -8,7 +8,7 @@ const Customers = () => {
   const theme = useTheme();
   const { data, isLoading } = useGetCustomersQuery();
   console.log("Customer data =>", data);
-
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const columns = [
     {
       field: "_id",
@@ -52,7 +52,7 @@ const Customers = () => {
   ];
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m={isNonMobile ? "1.5rem 2.5rem" : "1.5rem 0.5rem"}>
       <Header title="CUSTOMERS" subtitle="List of Customers" />
       {!isLoading ? (
         <Box
@@ -94,7 +94,16 @@ const Customers = () => {
           />
         </Box>
       ) : (
-        <>...Loading</>
+        <Box
+          width="100%"
+          height="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          fontSize="1.3rem"
+        >
+          Loading may take time. Please have patience :)
+        </Box>
       )}
     </Box>
   );

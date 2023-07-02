@@ -9,7 +9,20 @@ const BreakdownChart = ({ isDashboard = false }) => {
   const { data, isLoading } = useGetSalesQuery();
   const theme = useTheme();
 
-  if (!data || isLoading) return "...Loading";
+  if (!data || isLoading)
+    return (
+      <Box
+        width="100%"
+        height="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        fontSize={isNonMobile ? "1.1rem" : "0.8rem"}
+        textAlign="center"
+      >
+        Loading may take time. Please have patience :)
+      </Box>
+    );
 
   const colors = [
     theme.palette.secondary[500],
@@ -30,9 +43,14 @@ const BreakdownChart = ({ isDashboard = false }) => {
     <Box
       height={isDashboard ? "400px" : "100%"}
       // width={undefined}
-      width={isNonMobile ? "100%" : "120%"}
+      width="100%"
       minHeight={isDashboard ? "325px" : undefined}
       position="relative"
+      sx={{
+        g: {
+          border: "2px solid red",
+        },
+      }}
     >
       <ResponsivePie
         data={formattedData}
@@ -83,7 +101,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
           from: "color",
           modifiers: [["darker", 0.2]],
         }}
-        enableArcLinkLabels={!isDashboard}
+        enableArcLinkLabels={!isDashboard && isNonMobile}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor={theme.palette.secondary[200]}
         arcLinkLabelsThickness={2}
@@ -122,7 +140,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
       <Box>
         <Typography
           variant="h6"
-          fontSize="1.3rem"
+          fontSize={isNonMobile ? "1.3rem" : "1rem"}
           color={theme.palette.secondary[200]}
         >
           {!isDashboard && `Total : $${data.yearlySalesTotal}`}

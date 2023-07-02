@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useTheme } from "@emotion/react";
 import { useGetTransactionsQuery } from "../../state/api";
 import Header from "../../components/Header";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import DataGridCustomToolbar from "../../components/DataGridCustomToolbar";
 const Transactions = () => {
   const theme = useTheme();
-
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   //Values to be sent to the backend:
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
@@ -61,7 +61,7 @@ const Transactions = () => {
   ];
 
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m={isNonMobile ? "1.5rem 2.5rem" : "1.5rem 0.5rem"}>
       <Header title="TRANSACTIONS" subtitle="Entire list of transactions" />
       <Box
         height="80vh"

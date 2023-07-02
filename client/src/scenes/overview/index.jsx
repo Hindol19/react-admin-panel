@@ -1,19 +1,25 @@
 import React, { useState } from "react";
-import { Box, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select,
+  useMediaQuery,
+} from "@mui/material";
 import Header from "../../components/Header";
 import OverviewChart from "../../components/OverviewChart";
 
 const Overview = () => {
   const [view, setView] = useState("units");
-
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m={isNonMobile ? "1.5rem 2.5rem" : "1.5rem 1rem"}>
       <Header
         title="OVERVIEW"
         subtitle="Overview of general revenue and profit"
       />
       <Box height="75vh">
-
         {/* Drop down menu to select view */}
         <FormControl sx={{ mt: "1rem" }}>
           <InputLabel>View</InputLabel>
@@ -27,7 +33,7 @@ const Overview = () => {
           </Select>
         </FormControl>
 
-        <OverviewChart view={view}/>
+        <OverviewChart view={view} />
       </Box>
     </Box>
   );

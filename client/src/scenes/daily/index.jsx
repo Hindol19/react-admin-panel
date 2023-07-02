@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import Header from "../../components/Header";
 import { useGetSalesQuery } from "../../state/api";
 import DatePicker from "react-datepicker";
@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ResponsiveLine } from "@nivo/line";
 
 const Daily = () => {
+  const isNonMobile = useMediaQuery("(min-width: 768px)");
   const [startDate, setStartDate] = useState(new Date("2021-02-01"));
   const [endDate, setEndDate] = useState(new Date("2021-03-01"));
   const { data } = useGetSalesQuery();
@@ -52,7 +53,7 @@ const Daily = () => {
     return [formattedData];
   }, [data, startDate, endDate]);
   return (
-    <Box m="1.5rem 2.5rem">
+    <Box m={isNonMobile ? "1.5rem 2.5rem" : "1.5rem 1rem"}>
       <Header title="DAILY SALES" subtitle="Chart of daily sales" />
       <Box height="75vh">
         <Box display="flex" justifyContent="flex-end">
@@ -123,7 +124,7 @@ const Daily = () => {
               reverse: false,
             }}
             yFormat=" >-.2f"
-            curve="catmullRom"
+            curve={isNonMobile ? "catmullRom" : "linear"}
             axisTop={null}
             axisRight={null}
             axisBottom={{
@@ -181,7 +182,17 @@ const Daily = () => {
             ]}
           />
         ) : (
-          <>...Loading</>
+          <Box
+            width="100%"
+            height="100%"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            fontSize="1.3rem"
+            textAlign="center"
+          >
+            Loading may take time. Please have patience :)
+          </Box>
         )}
       </Box>
     </Box>
