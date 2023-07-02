@@ -147,7 +147,7 @@ const Sidebar = ({
                     fontWeight="bold"
                     sx={{ textAlign: "center" }}
                   >
-                    ECOMVISION
+                    INSIGHT DASH
                   </Typography>
                 </Box>
                 {!isNonMobile && (
